@@ -248,7 +248,18 @@ public class Tema1_Actividad1 {
         // TODO: EJERCICIO 7
         // Escribe aquí tu solución.
 
-        
+        FileOutputStream crearBytes = new FileOutputStream("/DAM2/AD/Tema01/bytes.txt");
+
+        crearBytes.write(72);
+        crearBytes.close();
+
+        FileInputStream entrada = new FileInputStream("/DAM2/AD/Tema01/bytes.txt");
+
+        int byteLeido = entrada.read();
+
+        System.out.println("Valor del byte: " + byteLeido);
+
+        entrada.close();
 
         // ============================================================
         // EJERCICIO 8 - ESCRITURA DE BYTES
@@ -269,6 +280,9 @@ public class Tema1_Actividad1 {
         // TODO: EJERCICIO 8
         // Escribe aquí tu solución.
 
+        FileOutputStream salida = new FileOutputStream("/DAM2/AD/Tema01/salidaBytes.txt");
+        salida.write(68);
+        salida.close();
 
         // ============================================================
         // EJERCICIO 9 - RandomAccessFile
@@ -296,6 +310,19 @@ public class Tema1_Actividad1 {
         // TODO: EJERCICIO 9
         // Escribe aquí tu solución.
 
+        FileWriter letras = new FileWriter("/DAM2/AD/Tema01/letras.txt");
+
+        letras.write("ABCDEFGHIJ");
+        letras.close();
+        RandomAccessFile buffer = new RandomAccessFile("/DAM2/AD/Tema01/letras.txt", "rw");
+
+        buffer.seek(5);
+
+        int letra = buffer.read();
+        System.out.println("Letra: " + (char) letra);
+        System.out.println("Posicion: " + buffer.getFilePointer());
+        
+        buffer.close();
 
         // ============================================================
         // EJERCICIO 10 - ESCRIBIR CON RandomAccessFile
@@ -317,6 +344,11 @@ public class Tema1_Actividad1 {
         // TODO: EJERCICIO 10
         // Escribe aquí tu solución.
 
+        RandomAccessFile buffer2 = new RandomAccessFile("/DAM2/AD/Tema01/letras.txt", "rw");
+        buffer2.seek(5);
+        buffer2.write('D');
+        buffer2.close();
+
         // ============================================================
         // EJERCICIO 11 - LEER VARIOS BYTES
         // ============================================================
@@ -336,6 +368,12 @@ public class Tema1_Actividad1 {
         // TODO: EJERCICIO 11
         // Escribe aquí tu solución.
 
+        RandomAccessFile buffer3 = new RandomAccessFile("/DAM2/AD/Tema01/letras.txt", "r");
+        byte[] datos = new byte[10];
+        int cantidad = buffer3.read(datos, 0, 10);
+        System.out.println("Bytes leidos: " + cantidad);
+        buffer3.close();
+        
         // ============================================================
         // EJERCICIO 12 - Ejercicio FINAL: GESTOR DE FICHEROS
         // ============================================================
@@ -389,6 +427,40 @@ public class Tema1_Actividad1 {
         // TODO: Ejercicio FINAL
         // Escribe aquí tu solución completa.
 
+        File alumnos = new File("/DAM2/AD/Tema01/alumnos.txt");
+
+        if (!alumnos.exists()) {
+            alumnos.createNewFile();
+        }
+
+        System.out.println("Nombre: " + alumnos.getName());
+        System.out.println("Ruta: " + alumnos.getPath());
+        System.out.println("Ruta absoluta: " + alumnos.getAbsolutePath());
+        System.out.println("Existe: " + alumnos.exists());
+        System.out.println("Se puede leer: " + alumnos.canRead());
+        System.out.println("Se puede escribir: " + alumnos.canWrite());
+
+        FileWriter escritorAlumnos = new FileWriter("/DAM2/AD/Tema01/alumnos.txt", true);
+
+        escritorAlumnos.write("Juan\nAna\nPedro\nLaura\n");
+
+        escritorAlumnos.close();
+
+        FileReader lectorAlumnos = new FileReader("/DAM2/AD/Tema01/alumnos.txt");
+
+        int primerCaracter = lectorAlumnos.read();
+
+        System.out.println("Primer caracter: " + (char) primerCaracter);
+        lectorAlumnos.close();
+        File backup = new File("/DAM2/AD/Tema01/backup");
+
+        if (!backup.exists()) {
+            backup.mkdirs();
+        }
+
+        File destinoAlumnos = new File("/DAM2/AD/Tema01/backup/alumnos.txt");
+        alumnos.renameTo(destinoAlumnos);
+        System.out.println("Ultima modificacion: " + destinoAlumnos.lastModified());
 
     }
 }
