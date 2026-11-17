@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mysql_tema6
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AD_tema6
+      MYSQL_USER: paula
+      MYSQL_PASSWORD: paula123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_tema6_data:/var/lib/mysql
+
+volumes:
+  mysql_tema6_data:

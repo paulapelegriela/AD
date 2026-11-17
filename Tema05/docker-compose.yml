@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_tema5
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: reservas
+      POSTGRES_USER: alumno
+      POSTGRES_PASSWORD: alumno123
+    ports: 
+      - "5432:5432"
+    volumes:
+      - postgres_tema5_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_tema5_data:
